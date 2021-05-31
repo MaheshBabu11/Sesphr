@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> SeSPHR - Health Record Management System</title>
+  <link rel="shortcut icon" type="image/png" href="./assets/favicon.png">
+  <meta name="description" content="SeSPHR Hospital record management system.">
+  <meta name="keywords" content="Hosptial record security">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+  <link rel="stylesheet" type="text/css" href="./static/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/style.css">
+
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <!--banner-->
+  <section id="banner" class="banner">
+    <div class="bg-color">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+              <a class="navbar-brand" href="#"><img src="./static/img/logo2.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#banner">Home</a></li>
+                <li class=""><a href="#service">Services</a></li>
+                <li class=""><a href="#about">About</a></li>
+                <li class=""><a href="#testimonial">Testimonial</a></li>
+                <li class=""><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="banner-info">
+            <div class="banner-logo text-center">
+              <img src="./static/img/logo2.png" class="img-responsive">
+            </div>
+            <br>
+            <div class="banner-text text-center">
+              <h1 class="white">Secure your health records!</h1>
+              <h3 style="color: white;">Are you worried about your health records being publicized ?</h3>
+              <h4 style="color: white;">We provide the complete solution to this problem.</h4>
+              <p>Store your health records securely and access them hassle free anywhere <br>anytime. Encrypted storage service for health records with 24&#10005;7 accesibility.</p>
+              <a href="#cta-1" class="btn btn-appoint">Register for using our service</a>
+            </div>
+            <div class="overlay-detail text-center">
+              <a href="#service"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ banner-->
+  <!--service-->
+  <section id="service" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <h2 class="ser-title">Our Service</h2>
+          <hr class="botm-line">
+          <p>We provide secure storage of health record over the cloud for hospitals and individuals.Our strong encryption schemes helps to secure your data and provides hassle free acees anytime from anywhere.</p>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-stethoscope"></i>
+            </div>
+            <div class="icon-info">
+              <h4>24 Hour Support</h4>
+              <p>24&#10005;7 data maintainace and recovery service.Our customer service agents can help you with your queries around the clock.</p>
+            </div>
+          </div>
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-ambulance"></i>
+            </div>
+            <div class="icon-info">
+              <h4>For Hospitals</h4>
+              <p>You can store all the record of your patients in one central database and have easy acces to this data. Our services are totally free of cost.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-user-md"></i>
+            </div>
+            <div class="icon-info">
+              <h4>For Doctors</h4>
+              <p>You can easily manage your appointments and access your patients health records and history. You can also add data into patients health records.</p>
+            </div>
+          </div>
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-medkit"></i>
+            </div>
+            <div class="icon-info">
+              <h4>For patients</h4>
+              <p>We provide a secure means to store your health records fully at your control and disposal. Now you donot need to worry and about someone manipulating it. This service is completely free! </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ service-->
+  <!--cta-->
+  <section id="cta-1" class="section-padding" style="align-items: center;">
+    <div class="container">
+      <div class="row">
+        <div class="schedule-tab">
+          <div class="col-md-4 col-sm-4 bor-left">
+            <div class="mt-boxy-color"></div>
+            <div class="medi-info">
+              <h3>For Hospitals</h3>
+              <p>New users can register while old users can login to continue where they left off!</p>
+              <a href="{{ url_for('hospital') }}"class="medi-info-btn">REGISTER / LOGIN</a>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <div class="medi-info">
+              <h3>For Doctors</h3>
+              <p>New users can register while old users can login to continue where they left off!</p>
+              <a href="{{ url_for('doctor') }}"class="medi-info-btn">REGISTER / LOGIN</a>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <div class="medi-info">
+              <h3>For individuals</h3>
+              <p>New users can register while old users can login to continue where they left off!</p>
+              <a href="{{ url_for('patient') }}"class="medi-info-btn">REGISTER / LOGIN</a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--cta-->
+  <!--about-->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="section-title">
+            <h2 class="head-title lg-line">The SeSPHR <br>Ultimate Dream</h2>
+            <hr class="botm-line">
+            <p class="sec-para">To be the most trusted choice among the people and industry , entrusted with securing their valuable health records.</p>
+            <a href="" style="color: #0cb8b6; padding-top:10px;">Know more..</a>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8 col-xs-12">
+          <div style="visibility: visible;" class="col-sm-9 more-features-box">
+            <div class="more-features-box-text">
+              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
+              <div class="more-features-box-text-description">
+                <h3>Our encryption standards are the best in industry.</h3>
+                <p>Our encryption standards are ISO certified and have strong resitance to bruteforcing and cryptanalysis techniques.</p>
+              </div>
+            </div>
+            <div class="more-features-box-text">
+              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
+              <div class="more-features-box-text-description">
+                <h3>We are a free and open sorce service.</h3>
+                <p>Our source code is freely vailable to anyone and we are always open to your suggesions and feedbacks. We are a non profit security organisation with the best intrest to secure and safely amnage your data. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ about-->
+  <!--creator team-->
+  <section id="doctor-team" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="ser-title">Meet Our Creators!</h2>
+          <hr class="botm-line">
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="./static/img/doctor1.jpg" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Adhin Adish</h3>
+              
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="./static/img/doctor2.jpg" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Akhil sugathan</h3>
+              
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="./static/img/doctor3.jpg" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Shabna shaji</h3>
+              
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="./static/img/doctor4.jpg" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Akash B</h3>
+              
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ doctor team-->
+  <!--testimonial-->
+  <section id="testimonial" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="ser-title">see what our users are saying?</h2>
+          <hr class="botm-line">
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="testi-details">
+            <!-- Paragraph -->
+            <p>Best in class service and easy to use. My entire family uses this service and we trust it!</p>
+          </div>
+          <div class="testi-info">
+            <!-- User Image -->
+            <a href="#"><img src="./static/img/thumb.png" alt="" class="img-responsive"></a>
+            <!-- User Name -->
+            <h3>Alex<span>Texas</span></h3>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="testi-details">
+            <!-- Paragraph -->
+            <p>Totally reliable! I am using this service for the last 5 years. Easy to use and totally worthy!</p>
+          </div>
+          <div class="testi-info">
+            <!-- User Image -->
+            <a href="#"><img src="./static/img/thumb.png" alt="" class="img-responsive"></a>
+            <!-- User Name -->
+            <h3>Alex<span>Texas</span></h3>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="testi-details">
+            <!-- Paragraph -->
+            <p>Relieves me of stress and anxiety about the security of my health records.Totally good experience and always reliable!</p>
+          </div>
+          <div class="testi-info">
+            <!-- User Image -->
+            <a href="#"><img src="./static/img/thumb.png" alt="" class="img-responsive"></a>
+            <!-- User Name -->
+            <h3>Alex<span>Texas</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ testimonial-->
+  <!--cta 2-->
+  <section id="cta-2" class="section-padding">
+    <div class="container">
+      <div class=" row">
+        <div class="col-md-2"></div>
+        <div class="text-right-md col-md-4 col-sm-4">
+          <h2 class="section-title white lg-line">« A few words<br> about us »</h2>
+        </div>
+        <div class="col-md-4 col-sm-5">
+          We are an open source software comapny focusing on providing security for data stored in cloud. SeSPHR provides security to the personal health record and uses dedicated servers to achieve this feat.
+          <p class="text-right text-primary"><i>— SeSPHR</i></p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </section>
+  <!--cta-->
+  <!--contact-->
+  <section id="contact" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div >
+          <h2 class="ser-title">Contact us</h3>
+          <hr class="botm-line">
+        </div>
+        <div>
+          <p ><i class="fa fa-map-marker fa-fw pull-left fa-2x" ></i>321 Awesome Street<br> New York, NY 17022</p><br>
+          <p><i class="fa fa-envelope-o fa-fw pull-left fa-2x" ></i>info@sesphr.com</p><br>
+           <p><i class="fa fa-phone fa-fw pull-left fa-2x" ></i>+1 800 123 1234</p>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ contact-->
+  <!--footer-->
+  <footer id="footer">
+    <div class="footer-line">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            © Copyright SeSPHR. All Rights Reserved
+            <div class="credits">
+            
+              <p >Made with <a style="color: red;">❤ </a>by SeSPHR TEAM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ footer-->
+
+  <script src="./static/js/jquery.min.js"></script>
+  <script src="./static/js/jquery.easing.min.js"></script>
+  <script src="./static/js/bootstrap.min.js"></script>
+  <script src="./static/js/custom.js"></script>
+  <script src="./static/contactform/contactform.js"></script>
+
+</body>
+
+</html>

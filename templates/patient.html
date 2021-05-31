@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> SeSPHR - Health Record Management System</title>
+  <link rel="shortcut icon" type="image/png" href="./assets/favicon.png">
+  <meta name="description" content="SeSPHR Hospital record management system.">
+  <meta name="keywords" content="Hosptial record security">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+  <link rel="stylesheet" type="text/css" href="./static/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/style.css">
+ 
+  
+
+<style>
+  * {box-sizing: border-box;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] , input[type=email] ,input[type=number]{
+  width: 40%;
+  
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  margin-left: 100px;;
+  background-color: #f44336;
+  float: left;
+  width: 20%;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.signupbtn {
+  float: center;
+  width: 20%;
+  margin-left:20px;
+}
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: transparent;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 350px;
+  top: 150px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fa0000;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+
+</style>
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <!--banner-->
+  <section id="banner" class="banner">
+    <div class="bg-color">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+              <a class="navbar-brand" href="#"><img src="./static/img/logo2.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+            </div>
+            
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="banner-info">
+            <div class="banner-logo text-center">
+              <img src="./static/img/logo2.png" class="img-responsive">
+            </div>
+            <br>
+            <div class="banner-text text-center">
+              <h1 class="white">Patient login / register</h1>
+            </div>
+  
+
+            <a  class="btn btn-appoint" style="margin-left: 500px; width: 100px;" onclick="document.getElementById('id02').style.display='block'">LOGIN</a>
+            <a  class="btn btn-appoint" style="margin-left: 20px; width: 100px;" onclick="document.getElementById('id01').style.display='block'">REGISTER</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- The Modal (contains the Sign Up form) -->
+<div id="id01" class="modal" >
+  <span onclick="document.getElementById('id01').style.display='flex'" class="close" title="Close Modal" style="width:50%"></span>
+  <form class="modal-content" method=post action="{{url_for('register_patient')}}" enctype=multipart/form-data>
+    <div class="container">
+      <h1>Register</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr style="width: 56%; margin-left :0px">
+      <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="name" required style="margin-left: 85px;">
+      <br>
+      <label for="email"><b>Email </b></label>
+      <input type="email" placeholder="Enter Email" name="email" required style="margin-left: 90px;" >
+      <br>
+      <label for="Phone"><b>Phone </b></label>
+      <input type="number" placeholder="Enter Phone number" name="Phone" required style="margin-left: 80px;" >
+      <br>
+      <br>
+      <label for="dob"><b>Date Of Birth </b></label>
+      <input type="date" placeholder="Enter Date Of Birth" name="dob" required style="margin-left: 80px;" >
+      <br>
+      <br>
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required style="margin-left: 57px;" > 
+      <br>
+      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+      <br>
+      <br>
+      <label>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+      <br>
+      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn">Sign Up</button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- The Modal (contains the Sign In form) -->
+<div id="id02" class="modal" >
+  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal" style="width:50%"></span>
+  <form class="modal-content" method=post action="{{ url_for('login_patient') }}" enctype=multipart/form-data>
+    <div class="container">
+      <h1>Sign In</h1>
+      
+      <hr style="width: 56%; margin-left :0px">
+      <label for="username"><b>Username </b></label>
+      <input type="text" placeholder="Enter Username" name="username" required style="margin-left: 90px;" >
+      <br>
+      
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required style="margin-left: 57px;" > 
+      <br>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+      <br>
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="signupbtn">Sign In</button>
+      </div>
+    </div>
+  </form>
+</div>
+  
+  <!--/ contact-->
+  <!--footer-->
+  <footer id="footer">
+    <div class="footer-line">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            © Copyright SeSPHR. All Rights Reserved
+            <div class="credits">
+              <p >Made with <a style="color: red;">❤ </a>by SeSPHR TEAM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ footer-->
+
+  <script src="./static/js/jquery.min.js"></script>
+  <script src="./static/js/jquery.easing.min.js"></script>
+  <script src="./static/js/bootstrap.min.js"></script>
+  <script src="./static/js/custom.js"></script>
+  <script src="./static/contactform/contactform.js"></script>
+  
+  
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+var modal2 = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal || event.target == modal2 ) {
+        modal.style.display = "none";
+    }
+}
+</script>
+</body>
+</html>
