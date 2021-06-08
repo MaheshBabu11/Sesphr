@@ -31,7 +31,7 @@ def login_doctor():
     print("yes")
     password=request.form['psw']
     print(uid,password)
-    val=validate_login(uid,password,"doctor")
+    val=validate_doctor(uid,password)
     if val==1:
         return render_template("doctor.html")
     else :
@@ -57,12 +57,40 @@ def login_patient():
     print("yes")
     password=request.form['psw']
     print(uid,password)
-    val=validate_login(uid,password,"patient")
+    val=validate_patinet(uid,password)
     if val==1:
-        return render_template("patient.html")
+        name,uidin=getname(uid)
+        session['uidval'] = uid
+        data=read_data
+        return render_template("patient_dashboard.html",user_name=name)
     else :
         return render_template("index.html")
-    
+
+@app.route('/generate_pin')
+def pin():
+    my_uid= session.get('uidval', None)
+    name,uidin=getname(my_uid)
+    pin=generate_pin()
+    insert_pin(pin,uidin)
+    return render_template('patient_dashboard.html',user_name=name,pin=pin)
+
+
+@app.route('/allow_access')
+def allow():
+    my_uid= session.get('uidval', None)
+    name,uidin=getname(my_uid)
+    allow_access(uidin)
+    PIN=read_pin(uidin)
+    return render_template('patient_dashboard.html',user_name=name,pin=PIN,access="ACCESS ALLOWED")  
+
+@app.route('/block_access')
+def deny():
+    my_uid= session.get('uidval', None)
+    name,uidin=getname(my_uid)
+    block_access(uidin)
+    PIN=read_pin(uidin)
+    return render_template('patient_dashboard.html',user_name=name,pin=PIN,deny="ACCESS BLOCKED")  
+
 
 
 @app.route('/registerhospital',methods=['POST'])
@@ -84,9 +112,10 @@ def login_hospital():
     print("yes")
     password=request.form['psw']
     print(uid,password)
-    val=validate_login(uid,password,"hospital")
+    val=validate_hospital(uid,password,)
     if val==1:
-        return render_template("hospital.html")
+        name=getname(uid)
+        return render_template("patient_dashboard.html",user_name=name)
     else :
         return render_template("index.html")
     
@@ -104,8 +133,14 @@ def patient():
     return render_template('patient.html')
 
 @app.route('/doctor_dashboard')
-def dashboard():
+def doctor_dashboard():
     return render_template('doctor_dashboard.html')
 
+@app.route('/patient_dashboard')
+def patient_dashboard():
+    data=read_data()
+    return render_template('patient_dashboard.html',user_name="Mahesh",output_data=data)
+
 if __name__ == '__main__':
+
     app.run(host='127.0.0.1', port=5001,debug=True,threaded=True)

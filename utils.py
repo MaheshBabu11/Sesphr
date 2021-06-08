@@ -1,5 +1,7 @@
 import secrets
 import mysql.connector
+import time
+import math, random
 import hashlib
 from base64 import urlsafe_b64encode as b64e, urlsafe_b64decode as b64d
 
@@ -123,6 +125,10 @@ def add_patient(name,email,phone,password,dob):
     val=(hashed_email,hashed_password,uid)
     cursor.execute(sql,val)
     conn.commit()
+    name='t'+str(uid)
+    sql ="""CREATE TABLE {tname} (current_date1 date,diagnosis longtext,doctor_uid int(6),prescription longtext,test_type longtext,result longtext)""".format(tname=name)
+    cursor.execute(sql)
+    conn.commit()
     return
 
 def add_hospital(name,email,phone,reg,login_type,password,hname):
@@ -165,51 +171,115 @@ def add_hospital(name,email,phone,reg,login_type,password,hname):
     conn.commit()
     return
 
-def validate_login(uid,password,whois):
-    if (whois=="doctor"):
-        hashed_uid=hash(uid)
-        hashed_password=hash(password)
-        sql="SELECT pass FROM login_doctor where email =%s"
-        data=(str(hashed_uid),)
-        cursor.execute(sql,data)
-        val=cursor.fetchall()
-        for i in val:
-            for  j in i:
-                value=j
-                break
-        if value==hashed_password:
-            return 1
-        else:
-            return 0
+def validate_doctor(uid,password):
+    hashed_uid=hash(uid)
+    hashed_password=hash(password)
+    sql="SELECT pass FROM login_doctor where email =%s"
+    data=(str(hashed_uid),)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    for i in val:
+        for  j in i:
+            value=j
+            break
+    if value==hashed_password:
+        return 1
+    else:
+        return 0
 
-    if (whois=="patinet"):
-        hashed_uid=hash(uid)
-        hashed_password=hash(password)
-        sql="SELECT pass FROM login_patinet where email =%s"
-        data=(str(hashed_uid),)
-        cursor.execute(sql,data)
-        val=cursor.fetchall()
-        for i in val:
-            for  j in i:
-                value=j
-                break
-        if value==hashed_password:
-            return 1
-        else:
-            return 0
+def validate_patinet(uid,password):
+    hashed_uid=hash(uid)
+    hashed_password=hash(password)
+    sql="SELECT pass FROM login_patient where email =%s"
+    data=(str(hashed_uid),)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    for i in val:
+        for  j in i:
+            value=j
+            break
+    if value==hashed_password:
+        return 1
+    else:
+        return 0
 
-    if (whois=="hospital"):
-        hashed_uid=hash(uid)
-        hashed_password=hash(password)
-        sql="SELECT pass FROM login_hospital where email =%s"
-        data=(str(hashed_uid),)
-        cursor.execute(sql,data)
-        val=cursor.fetchall()
-        for i in val:
-            for  j in i:
-                value=j
-                break
-        if value==hashed_password:
-            return 1
-        else:
-            return 0
+def validate_hospital(uid,password):
+    hashed_uid=hash(uid)
+    hashed_password=hash(password)
+    sql="SELECT pass FROM login_hospital where email =%s"
+    data=(str(hashed_uid),)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    for i in val:
+        for  j in i:
+            value=j
+            break
+    if value==hashed_password:
+        return 1
+    else:
+        return 0
+
+def read_data():
+    sql="SELECT * from login_patient"
+    cursor.execute(sql)
+    data= cursor.fetchall()
+    return data
+def generate_pin():
+    digits = "0123456789"
+    OTP = ""
+    for i in range(4) :
+        OTP += digits[math.floor(random.random() * 10)]
+    
+    return OTP
+
+def insert_pin(otp,uid):
+    cursor.execute("""UPDATE patient_details SET otp=%s WHERE uid=%s""",(otp, uid))
+    conn.commit()
+    return
+def read_pin(uid):
+    cursor.execute("""SELECT otp from patient_details WHERE uid=%s""",(uid,))
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            value=j
+            break
+    return value
+
+def allow_access(uid):
+    cursor.execute("""UPDATE patient_details SET allow_acess=%s where uid=%s""",(1,uid))
+    conn.commit()
+    return
+
+def block_access(uid):
+    cursor.execute("""UPDATE patient_details SET allow_acess=%s where uid=%s""",(0,uid))
+    conn.commit()
+    return
+
+
+def getname(uid):
+    sql="SELECT uid FROM login_patient where email =%s"
+    hashed_uid=hash(uid)
+    print(hashed_uid)
+    data=(str(hashed_uid),)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            value=j
+            break
+    print(value)
+    sql="select name from patient_details where uid=%s"
+    data=(value,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for j in i:
+            ename=j
+            break
+    
+    name=password_decrypt(ename,"everythingissafe")
+    
+    return name.decode("utf-8") ,value

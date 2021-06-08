@@ -1,93 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> SeSPHR - Health Record Management System</title>
-  <link rel="shortcut icon" type="image/png" href="./assets/favicon.png">
-  <meta name="description" content="SeSPHR Hospital record management system.">
-  <meta name="keywords" content="Hosptial record security">
-
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
-  <link rel="stylesheet" type="text/css" href="./static/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="./static/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="./static/css/style.css">
- 
+  <meta charset="UTF-8">
+  <title>Sesphr-Doctor Dashboard </title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css'>
   
+  <link rel="stylesheet" href="./static/css/style_dashboard.css">
 
-<style>
-  .details{
-    background-color: white;
-    margin-top: 20px;
-  }
-  body
-  {
-    background-color:#325C6A ;
-  }
-  
-</style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body id="myPage"  >
-<img src="./static/img/logo2.png" class="img-responsive"style="margin-top: 20px;width: 140px;">
+<body>
 
-
-  <div class="container">
+  <ul id="slide-out" class="side-nav fixed z-depth-2">
+    <li class="center no-padding">
+      <div class="blue darken-2 white-text" style="height: 180px;">
         <div class="row">
-          
-            <br>
-            <div class="banner-text text-center">
-              <h1 class="white">Welcome Dr. {Doctor_name}</h1>
-              
-                
-                <label for="name"><b>Name</b></label>
-                <input type="text" placeholder="Enter Name" name="name" required style="margin-left: 85px;color: black;">
-                  
-                </div>
-              </div>
-              
-              
-            </div>
-          </div>
+          <img style="margin-top: 5%;" width="100" height="100" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463990208/photo_dkkrxc.png" class="circle responsive-img" />
+
+          <p style="margin-top: -13%;">
+          {user_name} 
+          </p>
         </div>
       </div>
+    </li>
+
+    <li id="dash_dashboard"><a class="waves-effect" href="#!"><b>Dashboard</b></a></li>
+
+   <!-- <ul class="collapsible" data-collapsible="accordion">
+      <li id="dash_users">
+        <div id="dash_users_header" class="collapsible-header waves-effect"><b>Users</b></div>
+        <div id="dash_users_body" class="collapsible-body">
+          <ul>
+            <li id="users_seller">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Seller</a>
+            </li>
+
+            <li id="users_customer">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Customer</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li id="dash_products">
+        <div id="dash_products_header" class="collapsible-header waves-effect"><b>Products</b></div>
+        <div id="dash_products_body" class="collapsible-body">
+          <ul>
+            <li id="products_product">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Products</a>
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Orders</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li id="dash_categories">
+        <div id="dash_categories_header" class="collapsible-header waves-effect"><b>Categories</b></div>
+        <div id="dash_categories_body" class="collapsible-body">
+          <ul>
+            <li id="categories_category">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Category</a>
+            </li>
+
+            <li id="categories_sub_category">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Sub Category</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <li id="dash_brands">
+        <div id="dash_brands_header" class="collapsible-header waves-effect"><b>Brands</b></div>
+        <div id="dash_brands_body" class="collapsible-body">
+          <ul>
+            <li id="brands_brand">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Brand</a>
+            </li>
+
+            <li id="brands_sub_brand">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Sub Brand</a>
+            </li>
+          </ul>
+        </div>
+      </li>-->
+    </ul>
+  </ul>
+
+  <header>
+    
+    <ul class="dropdown-content" id="user_dropdown">
+     <!---- <li><a class="blue-text" href="#!">Profile</a></li>-->
+      <li><a class="blue-text" href="#!">Logout</a></li>
+    </ul>
+
+    <nav class="blue" role="navigation">
+
+      <div class="nav-wrapper">
+        <a class="navbar-brand" href="#"><img src="./static/img/logo2.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+        <a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: -50px; margin-left: 5px;" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989873/smaller-main-logo_3_bm40iv.gif" /></a>
+
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a>
+          </li>
+        </ul>
+
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      </div>
+    </nav>
+
+    
+  </header>
+
+<div>
   
-  <!--/ contact-->
-  <!--footer-->
-  <footer id="footer" style="margin-bottom: 50px;">
-    <div class="footer-line" style="margin-bottom: 20px;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center" style="margin-bottom:10px;">
-            © Copyright SeSPHR. All Rights Reserved
-            <div class="credits">
-              <p >Made with <a style="color: red;">❤ </a>by SeSPHR TEAM</p>
-          </div>
-        </div>
-      </div>
+  <form  method=post action="{{url_for('register_doctor')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
+    <div class="container">
+      
+      <label for="pid"><b>Patient ID </b></label>
+      <input type="text" placeholder="Enter Patient ID" name="pid" required style="margin-left: 85px;">
+      <br>
+      <label for="passcode"><b>Passcode  </b></label>
+      <input type="text" placeholder="Enter Passcode" name="email" required style="margin-left: 90px;" >
+      <br>
+      <br><br>
+     <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+    <i class="material-icons right">send</i>
+  </button>
     </div>
-  </footer>
-  <!--/ footer-->
+  </form>
+</div>
+    
+</body>
 
-  <script src="./static/js/jquery.min.js"></script>
-  <script src="./static/js/jquery.easing.min.js"></script>
-  <script src="./static/js/bootstrap.min.js"></script>
-  <script src="./static/js/custom.js"></script>
-  <script src="./static/contactform/contactform.js"></script>
-  
-  
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
-var modal2 = document.getElementById('id02');
+</html>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js'></script>
+<script  src="./static/js/script_dashboard.js"></script>
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal || event.target == modal2 ) {
-        modal.style.display = "none";
-    }
-}
-</script>
 </body>
 </html>

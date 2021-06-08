@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sesphr-Doctor Dashboard </title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css'>
+  
+  <link rel="stylesheet" href="./static/css/style_dashboard.css">
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+  <ul id="slide-out" class="side-nav fixed z-depth-2">
+    <li class="center no-padding">
+      <div class="blue darken-2 white-text" style="height: 180px;">
+        <div class="row">
+          <img style="margin-top: 5%;" width="100" height="100" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463990208/photo_dkkrxc.png" class="circle responsive-img" />
+
+          <p style="margin-top: -13%;">
+          {{user_name}} 
+          </p>
+        </div>
+      </div>
+    </li>
+
+    <li id="dash_dashboard"><a class="waves-effect" href="#!"><b>Dashboard</b></a></li>
+     <!-- Switch -->
+  
+    <a class="waves-effect waves-light btn-large blue"  onclick="window.location.href='{{url_for('pin')}}';">PIN GENERATE </a>
+
+
+  <p class="flow-text" style="text-align: center;">{{pin}}</p> 
+  <a class="waves-effect waves-light btn-large blue"  onclick="window.location.href='{{url_for('allow')}}';">ALLOW ACCESS </a>
+  <p class="flow-text" style="text-align: center;">{{access}}</p>
+  <a class="waves-effect waves-light btn-large blue"  onclick="window.location.href='{{url_for('deny')}}';"> BLOCK ACCESS</a>
+  <p class="flow-text" style="text-align: center;">{{deny}}</p>
+    </ul>
+  </ul>
+
+  <header>
+    
+    <ul class="dropdown-content" id="user_dropdown">
+     <!---- <li><a class="blue-text" href="#!">Profile</a></li>-->
+      <li><a class="blue-text" href="#!">Logout</a></li>
+    </ul>
+
+    <nav class="blue" role="navigation">
+
+      <div class="nav-wrapper">
+        <a class="navbar-brand" href="#"><img src="./static/img/logo2.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+        <a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: -50px; margin-left: 5px;" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989873/smaller-main-logo_3_bm40iv.gif" /></a>
+
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a>
+          </li>
+        </ul>
+
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      </div>
+    </nav>
+
+    
+  </header>
+   <p class="flow-text" style="text-align: center;">Medical Records</p>
+  <table class="striped" style="margin-top: 100px;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in output_data %}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+            </tr>
+        {% endfor %}      
+    </tbody>
+</table>
+
+
+
+
+
+<div>
+  
+  
+</div>
+    
+</body>
+
+</html>
+<!-- partial -->
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js'></script>
+<script  src="./static/js/script_dashboard.js"></script>
+
+</body>
+</html>
