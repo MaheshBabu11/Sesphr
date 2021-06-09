@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Sesphr-Patient Dashboard </title>
+  <title>Sesphr-Hospital Pharmacy Dashboard </title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css'>
   
   <link rel="stylesheet" href="./static/css/style_dashboard.css">
@@ -34,14 +34,8 @@
     <li id="dash_dashboard"><a class="waves-effect" href="#!"><b>Dashboard</b></a></li>
      <!-- Switch -->
   
-    <a class="waves-effect waves-light btn-large blue"  onclick="window.location.href='{{url_for('pin')}}';">PIN GENERATE </a>
-
-
-  <p class="flow-text" style="text-align: center;">{{pin}}</p> 
-  <a class="waves-effect waves-light btn-large blue"  onclick="window.location.href='{{url_for('allow')}}';">ALLOW ACCESS </a>
-  <p class="flow-text" style="text-align: center;">{{access}}</p>
-  <a class="waves-effect waves-light btn-large blue"  onclick="window.location.href='{{url_for('deny')}}';"> BLOCK ACCESS</a>
-  <p class="flow-text" style="text-align: center;">{{deny}}</p>
+ 
+ 
     </ul>
   </ul>
 
@@ -70,8 +64,38 @@
 
     
   </header>
-   <p class="flow-text" style="text-align: center;">Medical Records</p>
-   <p class="flow-text" style="text-align: center;">USER ID : {{uid}}</p>
+  {%if failure is defined%}
+   <h5 style="text-align: center;">Access Denied</h5>
+   <h5 style="text-align: center;">Try Again</h5>
+   {%endif%}
+    
+
+
+}
+
+
+{%if pharmacy is defined%}
+
+<p class="flow-text" style="text-align: center;">{{hname}} - PHARMACY</p>
+    <form  method=post action="{{url_for('data_pharm')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
+    <div class="container">
+      
+      <label for="pid"><b>Patient ID </b></label>
+      <input type="text" placeholder="Enter Patient ID" name="pid" required style="margin-left: 85px;">
+      <br>
+      <label for="passcode"><b>Passcode  </b></label>
+      <input type="text" placeholder="Enter Passcode" name="pcode" required style="margin-left: 90px;" >
+      <br>
+      <br><br>
+
+     <button class="blue btn waves-effect waves-light" type="submit" name="action">GET DETAILS
+    <i class="material-icons right">send</i>
+    </button>
+    </div>
+  </form>
+
+
+{%endif%}
 
 
 {%if output_data is defined%}
@@ -80,11 +104,9 @@
     <thead>
     <tr>
         <th>Date</th>
-        <th>Diagnosis</th>
-        <th>Doctor id</th>
+        <th>Doctor Id</th>
         <th>Prescription</th>
-        <th>Test type</th>
-        <th>Result</th>
+        
     </tr>
     </thead>
     <tbody>
@@ -94,8 +116,6 @@
                 <td>{{row[1]}}</td>
                 <td>{{row[2]}}</td>
                 <td>{{row[3]}}</td>
-                <td>{{row[4]}}</td>
-                <td>{{row[5]}}</td>
             </tr>
         {% endfor %}      
     </tbody>

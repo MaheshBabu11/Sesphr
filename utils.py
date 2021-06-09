@@ -317,6 +317,54 @@ def getname_doctor(uid):
     name=password_decrypt(ename,"everythingissafe")
     
     return name.decode("utf-8") ,value
+def getname_hospital(uid):
+    sql="SELECT uid FROM login_hospital where email =%s"
+    hashed_uid=hash(uid)
+    print(hashed_uid)
+    data=(str(hashed_uid),)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            value=j
+            break
+
+    sql="select name from hospital_details where uid=%s"
+    data=(value,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for j in i:
+            ename=j
+            break
+
+    sql="select type from hospital_details where uid=%s"
+    data=(value,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for j in i:
+            ename1=j
+            break
+    
+    sql="select hospitalname from hospital_details where uid=%s"
+    data=(value,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for j in i:
+            ename2=j
+            break
+
+    name=password_decrypt(ename,"everythingissafe")
+    typel=password_decrypt(ename1,"everythingissafe")
+    hname=password_decrypt(ename2,"everythingissafe")
+    print (name,typel)
+    return name.decode(),typel.decode(),value,hname.decode()
 
 
 def check_codes(uid,password):
@@ -343,14 +391,98 @@ def check_codes(uid,password):
 
 def insert_val( uid,passcde,diag,pres,did):
     today = date.today()
+    print(did)
     print(today)
-    name="t"+uid
+    name='t'+uid
     print(name)
     enc_diag=password_encrypt(diag.encode(),"everythingissafe")
     enc_pres=password_encrypt(pres.encode(),"everythingissafe")
-    sql ="""INSERT into {tname} (current_date1,diagnosis,doctor_uid,prescription,test_type,result)VALUES(%s %s %s %s %s %s) """.format(tname=name)
+    sql = """INSERT INTO {tname} VALUES (%s, %s,%s,%s,%s,%s)""".format(tname=name)
     data=(today,enc_diag,did,enc_pres,"","")
+    data1=(today,diag,did,pres,"","")
     cursor.execute(sql,data)
+    cursor1.execute(sql,data1)
     conn.commit()
+    conn1.commit()
     return 
-    
+
+def view_data(uid):
+    name='t'+str(uid)
+    sql="""SELECT* from {tname}""".format(tname=name)
+    cursor1.execute(sql)
+    data=cursor1.fetchall()
+    print(data)
+    return data
+
+def get_basic_data(uid):
+    sql="SELECT name FROM patient_details where uid =%s"
+    data=(uid,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            name=j
+            break
+
+    sql="SELECT email FROM patient_details where uid =%s"
+    data=(uid,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            email=j
+            break
+
+    sql="SELECT phone FROM patient_details where uid =%s"
+    data=(uid,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            phone=j
+            break
+
+    sql="SELECT dob FROM patient_details where uid =%s"
+    data=(uid,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            dob=j
+            break
+
+    name_dec=password_decrypt(name,"everythingissafe")
+    phone_dec=password_decrypt(phone,"everythingissafe")
+    email_dec=password_decrypt(email,"everythingissafe")
+    dob_dec=password_decrypt(dob,"everythingissafe")
+
+    return name_dec.decode(),phone_dec.decode(),email_dec.decode(),dob_dec.decode()
+
+def pharm_data(uid):
+    name='t'+str(uid)
+    sql="""SELECT current_date1,doctor_uid,prescription from {tname}""".format(tname=name)
+    cursor1.execute(sql)
+    data=cursor1.fetchall()
+    print(data)
+    return data
+
+def insert_val_lab(uid,passcde,diag,pres,did):
+    today = date.today()
+    print(did)
+    print(today)
+    name='t'+uid
+    print(name)
+    enc_test=password_encrypt(diag.encode(),"everythingissafe")
+    enc_res=password_encrypt(pres.encode(),"everythingissafe")
+    sql = """INSERT INTO {tname} VALUES (%s, %s,%s,%s,%s,%s)""".format(tname=name)
+    data=(today,"",did,"",enc_test,enc_res)
+    data1=(today,"",did,"",diag,pres)
+    cursor.execute(sql,data)
+    cursor1.execute(sql,data1)
+    conn.commit()
+    conn1.commit()
+    return

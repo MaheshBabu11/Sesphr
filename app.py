@@ -51,7 +51,8 @@ def patient_codes():
         name,uidin=getname_patient(session['uidval_doctor'])
         return render_template("doctor_dashboard.html",user_name=name, access=True)
     else:
-        return render_template("index.html")
+        name,uidin=getname_patient(session['uidval_doctor'])
+        return render_template("doctor_dashboard.html",user_name=name,allow=True,failure=True)
 
 
 @app.route('/patinetaccess',methods=['GET'])
@@ -63,10 +64,15 @@ def add_data():
 def insert_data():
     patient_diagnosis=request.form['diag']
     patinet_prescription=request.form['pres']
-    insert_val( session['patinet_uid'],session['patinet_access'],patient_diagnosis,patinet_prescription,session['uidval_doctor'])
     name,uidin=getname_patient(session['uidval_doctor'])
-    return render_template("doctor_dashboard.html",user_name=name,add=True)
+    insert_val( session['patinet_uid'],session['patinet_access'],patient_diagnosis,patinet_prescription,uidin)
+    return render_template("doctor_dashboard.html",user_name=name,sucess=True,access=True)
 
+@app.route('/showdata',methods=['GET'])
+def show_data():
+    data=view_data(session['patinet_uid'])
+    name,uidin=getname_patient(session['uidval_doctor'])
+    return render_template("doctor_dashboard.html",user_name=name,output_data=data)
 
 @app.route('/registerpatient',methods=['POST'])
 def register_patient():
@@ -90,8 +96,8 @@ def login_patient():
     if val==1:
         name,uidin=getname_patient(uid)
         session['uidval'] = uid
-    
-        return render_template("patient_dashboard.html",user_name=name,uid=uidin)
+        data=view_data(uidin)
+        return render_template("patient_dashboard.html",user_name=name,uid=uidin,output_data=data)
     else :
         return render_template("index.html")
 
@@ -103,8 +109,9 @@ def pin():
     my_uid= session.get('uidval', None)
     name,uidin=getname_patient(my_uid)
     pin=generate_pin()
+    data=view_data(uidin)
     insert_pin(pin,uidin)
-    return render_template('patient_dashboard.html',user_name=name,pin=pin,uid=uidin)
+    return render_template('patient_dashboard.html',user_name=name,pin=pin,uid=uidin,output_data=data)
 
 
 @app.route('/allow_access')
@@ -113,7 +120,8 @@ def allow():
     name,uidin=getname_patient(my_uid)
     allow_access(uidin)
     PIN=read_pin(uidin)
-    return render_template('patient_dashboard.html',user_name=name,pin=PIN,access="ACCESS ALLOWED",uid=uidin)  
+    data=view_data(uidin)
+    return render_template('patient_dashboard.html',user_name=name,pin=PIN,access="ACCESS ALLOWED",uid=uidin,output_data=data)  
 
 @app.route('/block_access')
 def deny():
@@ -121,7 +129,8 @@ def deny():
     name,uidin=getname_patient(my_uid)
     block_access(uidin)
     PIN=read_pin(uidin)
-    return render_template('patient_dashboard.html',user_name=name,pin=PIN,deny="ACCESS BLOCKED",uid=uidin)  
+    data=view_data(uidin)
+    return render_template('patient_dashboard.html',user_name=name,pin=PIN,deny="ACCESS BLOCKED",uid=uidin,output_data=data)  
 
 
 
@@ -144,17 +153,77 @@ def login_hospital():
     print("yes")
     password=request.form['psw']
     print(uid,password)
+    session['uidval_hospital'] = uid
     val=validate_hospital(uid,password,)
     if val==1:
-        name=getname(uid)
-        return render_template("patient_dashboard.html",user_name=name)
+        name,typel,uidin,hname=getname_hospital(uid)
+        if typel=="Admin": 
+            return render_template("hospital_admin_dashboard.html",user_name=name,admin=True,hname=hname)
+        elif typel=="Pharmacy":
+            return render_template("pharm_dashboard.html",user_name=name,pharmacy=True,hname=hname)
+        elif typel=="Lab":
+            return render_template("lab_dashboard.html",user_name=name,lab=True,hname=hname)
     else :
         return render_template("index.html")
     
 
+@app.route('/admindata',methods=['POST'])
+def fetch_data():
+    patient_uid=request.form['pid']
+    patinet_access=request.form['pcode']
+    session['patinet_uid'] = patient_uid
+    session['patinet_access'] = patinet_access
+    val=check_codes(patient_uid,patinet_access)
+    if val==1:
+        pname,phone,email,dob=get_basic_data(patient_uid)
+        name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+        return render_template("hospital_admin_dashboard.html",user_name=name,hname=hname,access=True,pname=pname,phone=phone,email=email,dob=dob)
+    else:
+        name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+        return render_template("hospital_admin_dashboard.html",user_name=name,admin=True,hname=hname,failure=True)
+
+@app.route('/pharmdata',methods=['POST'])
+def data_pharm():
+    patient_uid=request.form['pid']
+    patinet_access=request.form['pcode']
+    session['patinet_uid'] = patient_uid
+    session['patinet_access'] = patinet_access
+    val=check_codes(patient_uid,patinet_access)
+    if val==1:
+        data=pharm_data(patient_uid)
+        name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+        return render_template("pharm_dashboard.html",user_name=name,hname=hname,output_data=data)
+    else:
+        name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+        return render_template("pharm_dashboard.html",user_name=name,pharmacy=True,hname=hname,failure=True)
 
 
+@app.route('/labdata',methods=['POST'])
+def data_lab():
+    patient_uid=request.form['pid']
+    patinet_access=request.form['pcode']
+    session['patinet_uid'] = patient_uid
+    session['patinet_access'] = patinet_access
+    val=check_codes(patient_uid,patinet_access)
+    if val==1:
+        name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+        return render_template("lab_dashboard.html",user_name=name,hname=hname,access=True)
+    else:
+        name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+        return render_template("lab_dashboard.html",user_name=name,lab=True,hname=hname,failure=True)
 
+@app.route('/labdata',methods=['GET'])
+def add_data_lab():
+    name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+    return render_template("lab_dashboard.html",user_name=name,add=True,hname=hname)
+
+@app.route('/insertdatalab',methods=['POST'])
+def insert_data_lab():
+    patient_test=request.form['diag']
+    patinet_res=request.form['pres']
+    name,typel,uidin,hname=getname_hospital(session['uidval_hospital'])
+    insert_val_lab(session['patinet_uid'],session['patinet_access'],patient_test,patinet_res,uidin)
+    return render_template("lab_dashboard.html",user_name=name,hname=hname,sucess=True)
 
 @app.route('/hospital')
 def hospital():

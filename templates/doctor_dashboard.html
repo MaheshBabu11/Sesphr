@@ -7,7 +7,6 @@
   
   <link rel="stylesheet" href="./static/css/style_dashboard.css">
 
-
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -31,64 +30,6 @@
     </li>
 
     <li id="dash_dashboard"><a class="waves-effect" href="#!"><b>Dashboard</b></a></li>
-
-   <!-- <ul class="collapsible" data-collapsible="accordion">
-      <li id="dash_users">
-        <div id="dash_users_header" class="collapsible-header waves-effect"><b>Users</b></div>
-        <div id="dash_users_body" class="collapsible-body">
-          <ul>
-            <li id="users_seller">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Seller</a>
-            </li>
-
-            <li id="users_customer">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Customer</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-
-      <li id="dash_products">
-        <div id="dash_products_header" class="collapsible-header waves-effect"><b>Products</b></div>
-        <div id="dash_products_body" class="collapsible-body">
-          <ul>
-            <li id="products_product">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Products</a>
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Orders</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-
-      <li id="dash_categories">
-        <div id="dash_categories_header" class="collapsible-header waves-effect"><b>Categories</b></div>
-        <div id="dash_categories_body" class="collapsible-body">
-          <ul>
-            <li id="categories_category">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Category</a>
-            </li>
-
-            <li id="categories_sub_category">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Sub Category</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-
-      <li id="dash_brands">
-        <div id="dash_brands_header" class="collapsible-header waves-effect"><b>Brands</b></div>
-        <div id="dash_brands_body" class="collapsible-body">
-          <ul>
-            <li id="brands_brand">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Brand</a>
-            </li>
-
-            <li id="brands_sub_brand">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Sub Brand</a>
-            </li>
-          </ul>
-        </div>
-      </li>-->
     </ul>
   </ul>
 
@@ -119,6 +60,10 @@
   </header>
 
 <div>
+  {%if failure is defined%}
+   <h5 style="text-align: center;">Access Denied</h5>
+   <h5 style="text-align: center;">Try Again</h5>
+   {%endif%}
   {%if allow is defined %}
   <form  method=post action="{{url_for('patient_codes')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
     <div class="container">
@@ -138,10 +83,17 @@
   </form>
   {%endif%}
   <br>
-  {% if access is defined %}
+
+  {%if sucess is defined%}
+   <h5 style="text-align: center;">Data Entered </h5>
+   {%endif%}
+
+
+  {% if access is defined%}
   <h5 style="text-align: center;">Access Granted </h5>
+
   <div class="container" style="margin-top: 100px; align-items: center;">
-     <button class="blue btn waves-effect waves-light" type="submit" name="action" style="margin-left: 170px;">VIEW HISTORY
+     <button class="blue btn waves-effect waves-light" type="submit" name="action" onclick="window.location.href='{{url_for('show_data')}}';" style="margin-left: 170px;">VIEW HISTORY
     <i class="material-icons right">send</i>
     </button>
      <button class="blue btn waves-effect waves-light" type="submit" name="action" onclick="window.location.href='{{url_for('add_data')}}';"style="margin-left: 30px;"> ADD DATA
@@ -149,6 +101,7 @@
     </button>
   </div>
   {% endif %}
+
 
 {% if add is defined %}
     <form  method=post action="{{url_for('insert_data')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
@@ -169,8 +122,40 @@
   </form>
 
 {%endif%}
+{%if output_data is defined%}
+<div class ="container">
+  <table class="striped" style="margin-top: 100px; margin-left: 80px;">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Diagnosis</th>
+        <th>Doctor id</th>
+        <th>Prescription</th>
+        <th>Test type</th>
+        <th>Result</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in output_data %}
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+            </tr>
+        {% endfor %}      
+    </tbody>
+  </table>
+</div>
+{%endif%}
 
 
+  <footer class="page-footer blue"style="position:  fixed;left: 0;bottom: 0;width: 100%;">
+          <div class="footer-copyright" style="text-align: center;">
+           © Copyright SeSPHR. All Rights Reserved &nbsp; Made with <a style="color: red;">❤ </a>by SeSPHR TEAM
+          </div>
+</footer>
+            
 </body>
 
 </html>
