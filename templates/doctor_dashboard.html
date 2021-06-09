@@ -24,7 +24,7 @@
           <img style="margin-top: 5%;" width="100" height="100" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463990208/photo_dkkrxc.png" class="circle responsive-img" />
 
           <p style="margin-top: -13%;">
-          {user_name} 
+          {{user_name}} 
           </p>
         </div>
       </div>
@@ -119,24 +119,58 @@
   </header>
 
 <div>
-  
-  <form  method=post action="{{url_for('register_doctor')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
+  {%if allow is defined %}
+  <form  method=post action="{{url_for('patient_codes')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
     <div class="container">
       
       <label for="pid"><b>Patient ID </b></label>
       <input type="text" placeholder="Enter Patient ID" name="pid" required style="margin-left: 85px;">
       <br>
       <label for="passcode"><b>Passcode  </b></label>
-      <input type="text" placeholder="Enter Passcode" name="email" required style="margin-left: 90px;" >
+      <input type="text" placeholder="Enter Passcode" name="pcode" required style="margin-left: 90px;" >
       <br>
       <br><br>
-     <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+
+     <button class="blue btn waves-effect waves-light" type="submit" name="action">SUBMIT DATA
     <i class="material-icons right">send</i>
-  </button>
+    </button>
     </div>
   </form>
-</div>
-    
+  {%endif%}
+  <br>
+  {% if access is defined %}
+  <h5 style="text-align: center;">Access Granted </h5>
+  <div class="container" style="margin-top: 100px; align-items: center;">
+     <button class="blue btn waves-effect waves-light" type="submit" name="action" style="margin-left: 170px;">VIEW HISTORY
+    <i class="material-icons right">send</i>
+    </button>
+     <button class="blue btn waves-effect waves-light" type="submit" name="action" onclick="window.location.href='{{url_for('add_data')}}';"style="margin-left: 30px;"> ADD DATA
+    <i class="material-icons right">send</i>
+    </button>
+  </div>
+  {% endif %}
+
+{% if add is defined %}
+    <form  method=post action="{{url_for('insert_data')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
+    <div class="container">
+      
+      <label for="diag"><b>Diagnosis </b></label>
+      <input type="text" placeholder="Enter Diagnosis" name="diag" required style="margin-left: 85px;">
+      <br>
+      <label for="pres"><b>Prescription </b></label>
+      <input type="text" placeholder="Enter Prescription" name="pres" required style="margin-left: 90px;" >
+      <br>
+      <br><br>
+
+     <button class="blue btn waves-effect waves-light" type="submit" name="action">SUBMIT DATA
+    <i class="material-icons right">send</i>
+    </button>
+    </div>
+  </form>
+
+{%endif%}
+
+
 </body>
 
 </html>

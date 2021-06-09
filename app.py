@@ -33,10 +33,39 @@ def login_doctor():
     print(uid,password)
     val=validate_doctor(uid,password)
     if val==1:
-        return render_template("doctor.html")
+        name,uidin=getname_patient(uid)
+        session['uidval_doctor'] = uid
+        
+        return render_template("doctor_dashboard.html",user_name=name , allow=True)
     else :
         return render_template("index.html")
 
+@app.route('/patinetaccess',methods=['POST'])
+def patient_codes():
+    patient_uid=request.form['pid']
+    patinet_access=request.form['pcode']
+    session['patinet_uid'] = patient_uid
+    session['patinet_access'] = patinet_access
+    val=check_codes(patient_uid,patinet_access)
+    if val==1:
+        name,uidin=getname_patient(session['uidval_doctor'])
+        return render_template("doctor_dashboard.html",user_name=name, access=True)
+    else:
+        return render_template("index.html")
+
+
+@app.route('/patinetaccess',methods=['GET'])
+def add_data():
+    name,uidin=getname_patient(session['uidval_doctor'])
+    return render_template("doctor_dashboard.html",user_name=name,add=True)
+   
+@app.route('/insertdata',methods=['POST'])
+def insert_data():
+    patient_diagnosis=request.form['diag']
+    patinet_prescription=request.form['pres']
+    insert_val( session['patinet_uid'],session['patinet_access'],patient_diagnosis,patinet_prescription,session['uidval_doctor'])
+    name,uidin=getname_patient(session['uidval_doctor'])
+    return render_template("doctor_dashboard.html",user_name=name,add=True)
 
 
 @app.route('/registerpatient',methods=['POST'])
@@ -59,37 +88,40 @@ def login_patient():
     print(uid,password)
     val=validate_patinet(uid,password)
     if val==1:
-        name,uidin=getname(uid)
+        name,uidin=getname_patient(uid)
         session['uidval'] = uid
-        data=read_data
-        return render_template("patient_dashboard.html",user_name=name)
+    
+        return render_template("patient_dashboard.html",user_name=name,uid=uidin)
     else :
         return render_template("index.html")
+
+
+
 
 @app.route('/generate_pin')
 def pin():
     my_uid= session.get('uidval', None)
-    name,uidin=getname(my_uid)
+    name,uidin=getname_patient(my_uid)
     pin=generate_pin()
     insert_pin(pin,uidin)
-    return render_template('patient_dashboard.html',user_name=name,pin=pin)
+    return render_template('patient_dashboard.html',user_name=name,pin=pin,uid=uidin)
 
 
 @app.route('/allow_access')
 def allow():
     my_uid= session.get('uidval', None)
-    name,uidin=getname(my_uid)
+    name,uidin=getname_patient(my_uid)
     allow_access(uidin)
     PIN=read_pin(uidin)
-    return render_template('patient_dashboard.html',user_name=name,pin=PIN,access="ACCESS ALLOWED")  
+    return render_template('patient_dashboard.html',user_name=name,pin=PIN,access="ACCESS ALLOWED",uid=uidin)  
 
 @app.route('/block_access')
 def deny():
     my_uid= session.get('uidval', None)
-    name,uidin=getname(my_uid)
+    name,uidin=getname_patient(my_uid)
     block_access(uidin)
     PIN=read_pin(uidin)
-    return render_template('patient_dashboard.html',user_name=name,pin=PIN,deny="ACCESS BLOCKED")  
+    return render_template('patient_dashboard.html',user_name=name,pin=PIN,deny="ACCESS BLOCKED",uid=uidin)  
 
 
 

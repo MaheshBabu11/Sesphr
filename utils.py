@@ -4,14 +4,16 @@ import time
 import math, random
 import hashlib
 from base64 import urlsafe_b64encode as b64e, urlsafe_b64decode as b64d
-
+from datetime import date
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 conn=mysql.connector.connect(host="localhost",username="root",password="",database="sesphr")
+conn1=mysql.connector.connect(host="localhost",username="root",password="",database="clone")
 cursor = conn.cursor()
+cursor1 = conn1.cursor()
 
 
 
@@ -128,7 +130,9 @@ def add_patient(name,email,phone,password,dob):
     name='t'+str(uid)
     sql ="""CREATE TABLE {tname} (current_date1 date,diagnosis longtext,doctor_uid int(6),prescription longtext,test_type longtext,result longtext)""".format(tname=name)
     cursor.execute(sql)
+    cursor1.execute(sql)
     conn.commit()
+    conn1.commit()
     return
 
 def add_hospital(name,email,phone,reg,login_type,password,hname):
@@ -223,7 +227,9 @@ def read_data():
     sql="SELECT * from login_patient"
     cursor.execute(sql)
     data= cursor.fetchall()
-    return data
+    values=[]
+    
+
 def generate_pin():
     digits = "0123456789"
     OTP = ""
@@ -257,7 +263,7 @@ def block_access(uid):
     return
 
 
-def getname(uid):
+def getname_patient(uid):
     sql="SELECT uid FROM login_patient where email =%s"
     hashed_uid=hash(uid)
     print(hashed_uid)
@@ -283,3 +289,68 @@ def getname(uid):
     name=password_decrypt(ename,"everythingissafe")
     
     return name.decode("utf-8") ,value
+
+
+def getname_doctor(uid):
+    sql="SELECT uid FROM login_doctor where email =%s"
+    hashed_uid=hash(uid)
+    print(hashed_uid)
+    data=(str(hashed_uid),)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            value=j
+            break
+    print(value)
+    sql="select name from doctor_details where uid=%s"
+    data=(value,)
+    cursor.execute(sql,data)
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for j in i:
+            ename=j
+            break
+    
+    name=password_decrypt(ename,"everythingissafe")
+    
+    return name.decode("utf-8") ,value
+
+
+def check_codes(uid,password):
+    cursor.execute("""SELECT otp from patient_details WHERE uid=%s""",(uid,))
+    val=cursor.fetchall()
+    print(val)
+    for i in val:
+        for  j in i:
+            value=j
+            break
+    print(value)
+    cursor.execute("""SELECT allow_acess from patient_details WHERE uid=%s""",(uid,))
+    val2=cursor.fetchall()
+    print(val2)
+    for i in val2:
+        for  j in i:
+            value2=j
+            break
+    print(value2)
+    if value == password and value2=="1":
+        return 1
+    else :
+        return 0
+
+def insert_val( uid,passcde,diag,pres,did):
+    today = date.today()
+    print(today)
+    name="t"+uid
+    print(name)
+    enc_diag=password_encrypt(diag.encode(),"everythingissafe")
+    enc_pres=password_encrypt(pres.encode(),"everythingissafe")
+    sql ="""INSERT into {tname} (current_date1,diagnosis,doctor_uid,prescription,test_type,result)VALUES(%s %s %s %s %s %s) """.format(tname=name)
+    data=(today,enc_diag,did,enc_pres,"","")
+    cursor.execute(sql,data)
+    conn.commit()
+    return 
+    
