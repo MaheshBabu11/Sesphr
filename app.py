@@ -65,8 +65,11 @@ def insert_data():
     patient_diagnosis=request.form['diag']
     patinet_prescription=request.form['pres']
     name,uidin=getname_patient(session['uidval_doctor'])
-    insert_val( session['patinet_uid'],session['patinet_access'],patient_diagnosis,patinet_prescription,uidin)
-    return render_template("doctor_dashboard.html",user_name=name,sucess=True,access=True)
+    if (check_codes(session['patinet_uid'],session['patinet_access'])):
+        insert_val( session['patinet_uid'],session['patinet_access'],patient_diagnosis,patinet_prescription,uidin)
+        return render_template("doctor_dashboard.html",user_name=name,sucess=True,access=True)
+    else:
+        return render_template("doctor_dashboard.html",user_name=name,failure=True)
 
 @app.route('/showdata',methods=['GET'])
 def show_data():
