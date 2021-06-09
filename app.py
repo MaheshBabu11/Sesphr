@@ -33,7 +33,7 @@ def login_doctor():
     print(uid,password)
     val=validate_doctor(uid,password)
     if val==1:
-        name,uidin=getname_patient(uid)
+        name,uidin=getname_doctor(uid)
         session['uidval_doctor'] = uid
         
         return render_template("doctor_dashboard.html",user_name=name , allow=True)
