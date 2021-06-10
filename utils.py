@@ -182,6 +182,8 @@ def validate_doctor(uid,password):
     data=(str(hashed_uid),)
     cursor.execute(sql,data)
     val=cursor.fetchall()
+    if not val:
+        return 2
     for i in val:
         for  j in i:
             value=j
@@ -198,6 +200,8 @@ def validate_patinet(uid,password):
     data=(str(hashed_uid),)
     cursor.execute(sql,data)
     val=cursor.fetchall()
+    if not val:
+        return 2
     for i in val:
         for  j in i:
             value=j
@@ -214,6 +218,8 @@ def validate_hospital(uid,password):
     data=(str(hashed_uid),)
     cursor.execute(sql,data)
     val=cursor.fetchall()
+    if not val:
+        return 2
     for i in val:
         for  j in i:
             value=j
@@ -395,6 +401,7 @@ def insert_val( uid,passcde,diag,pres,did):
     print(today)
     name='t'+uid
     print(name)
+    
     enc_diag=password_encrypt(diag.encode(),"everythingissafe")
     enc_pres=password_encrypt(pres.encode(),"everythingissafe")
     sql = """INSERT INTO {tname} VALUES (%s, %s,%s,%s,%s,%s)""".format(tname=name)
