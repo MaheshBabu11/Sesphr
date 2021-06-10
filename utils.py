@@ -72,6 +72,11 @@ def add_doctor(name,email,phone,hname,licence,password):
             for  j in i:
                 uid=j+1
                 break
+    hashed_email=hash(email)
+    hashed_password=hash(password)
+    val=check_email_doctor(hashed_email)
+    if val==1:
+        return 1
     encrypted_name=password_encrypt(name.encode(),"everythingissafe")
     encrypted_email=password_encrypt(email.encode(),"everythingissafe")
     encrypted_phone=password_encrypt(phone.encode(),"everythingissafe")
@@ -83,8 +88,7 @@ def add_doctor(name,email,phone,hname,licence,password):
     cursor.execute(sql,val)
     conn.commit()
 
-    hashed_email=hash(email)
-    hashed_password=hash(password)
+    
     sql = "INSERT INTO login_doctor (email,pass,uid) VALUES (%s, %s,%s)"
     val=(hashed_email,hashed_password,uid)
     cursor.execute(sql,val)
@@ -111,6 +115,12 @@ def add_patient(name,email,phone,password,dob):
             for  j in i:
                 uid=j+1
                 break
+
+    hashed_email=hash(email)
+    hashed_password=hash(password)
+    val=check_email_patient(hashed_email)
+    if val==1:
+        return 1
     encrypted_name=password_encrypt(name.encode(),"everythingissafe")
     encrypted_email=password_encrypt(email.encode(),"everythingissafe")
     encrypted_phone=password_encrypt(phone.encode(),"everythingissafe")
@@ -120,9 +130,6 @@ def add_patient(name,email,phone,password,dob):
     val=(encrypted_name,encrypted_email,encrypted_phone,encrypted_pass,encrypted_dob,"0000","0",uid)
     cursor.execute(sql,val)
     conn.commit()
-
-    hashed_email=hash(email)
-    hashed_password=hash(password)
     sql = "INSERT INTO login_patient (email,pass,uid) VALUES (%s, %s,%s)"
     val=(hashed_email,hashed_password,uid)
     cursor.execute(sql,val)
@@ -155,6 +162,12 @@ def add_hospital(name,email,phone,reg,login_type,password,hname):
             for  j in i:
                 uid=j+1
                 break
+
+    hashed_email=hash(email)
+    hashed_password=hash(password)
+    val=check_email_hospital(hashed_email)
+    if val==1:
+        return 1
     encrypted_name=password_encrypt(name.encode(),"everythingissafe")
     encrypted_email=password_encrypt(email.encode(),"everythingissafe")
     encrypted_phone=password_encrypt(phone.encode(),"everythingissafe")
@@ -167,8 +180,7 @@ def add_hospital(name,email,phone,reg,login_type,password,hname):
     cursor.execute(sql,val)
     conn.commit()
 
-    hashed_email=hash(email)
-    hashed_password=hash(password)
+    
     sql = "INSERT INTO login_hospital (email,pass,uid) VALUES (%s, %s,%s)"
     val=(hashed_email,hashed_password,uid)
     cursor.execute(sql,val)
@@ -493,3 +505,30 @@ def insert_val_lab(uid,passcde,diag,pres,did):
     conn.commit()
     conn1.commit()
     return
+
+def check_email_patient(email):
+    cursor.execute("""SELECT (1) from login_patient where email = %s limit 1""",(email,))
+    val=cursor.fetchall()
+    print(val)
+    if cursor.rowcount==1:
+        return 1
+    else:
+        return 0
+ 
+def check_email_doctor(email):
+    cursor.execute("""SELECT (1) from login_doctor where email = %s limit 1""",(email,))
+    val=cursor.fetchall()
+    print(val)
+    if cursor.rowcount==1:
+        return 1
+    else:
+        return 0
+
+def check_email_hospital(email):
+    cursor.execute("""SELECT (1) from login_hospital where email = %s limit 1""",(email,))
+    val=cursor.fetchall()
+    print(val)
+    if cursor.rowcount==1:
+        return 1
+    else:
+        return 0

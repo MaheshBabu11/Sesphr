@@ -163,10 +163,13 @@ button:hover {
               <h4 class="white" style="text-align: center;"> Invalid Password / Username</h4>
 
             {%endif%}
-            {%if nouser is defined%}
-               <h4 class="white" style="text-align: center;"> User not registred</h4>
+            {%if userin is defined%}
+               <h4 class="white" style="text-align: center;"> User already registered</h4>
             {%endif%}
-  
+            
+            {%if useradded is defined%}
+               <h4 class="white" style="text-align: center;"> User  registered</h4>
+            {%endif%}
 
             <a  class="btn btn-appoint" style="margin-left: 500px; width: 100px;" onclick="document.getElementById('id02').style.display='block'">LOGIN</a>
             <a  class="btn btn-appoint" style="margin-left: 20px; width: 100px;" onclick="document.getElementById('id01').style.display='block'">REGISTER</a>

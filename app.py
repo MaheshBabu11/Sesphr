@@ -22,8 +22,11 @@ def register_doctor():
     licence=request.form['licence']
     psw=request.form['psw']
     psw_repeat=request.form['psw-repeat']
-    add_doctor(name,email,phone,hname,licence,psw)
-    return render_template('doctor.html')
+    val=add_doctor(name,email,phone,hname,licence,psw)
+    if val==1:
+        return render_template('doctor.html',userin=True)
+    else:
+        return render_template('doctor.html',useradded=True)
 
 @app.route('/logindoctor',methods=['POST'])
 def login_doctor():
@@ -86,8 +89,11 @@ def register_patient():
     psw=request.form['psw']
     psw_repeat=request.form['psw-repeat']
     print(name,email,phone,psw,dob)
-    add_patient(name,email,phone,psw,dob)
-    return render_template('patient.html')
+    val=add_patient(name,email,phone,psw,dob)
+    if val==1:
+        return render_template('patient.html',userin=True)
+    else:
+        return render_template('patient.html',useradded=True)
 
 @app.route('/loginpatient',methods=['POST'])
 def login_patient():
@@ -147,8 +153,11 @@ def register_hospital():
     hname=request.form['hname']
     psw=request.form['psw']
     psw_repeat=request.form['psw-repeat']
-    add_hospital(name,email,phone,reg,login_type,psw,hname)
-    return render_template('hospital.html')
+    val=add_hospital(name,email,phone,reg,login_type,psw,hname)
+    if val==1:
+        return render_template('hospital.html',userin=True)
+    else:
+        return render_template('hospital.html',useradded=True)
 
 @app.route('/loginhospital',methods=['POST'])
 def login_hospital():
