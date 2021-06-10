@@ -38,7 +38,7 @@ def login_doctor():
         
         return render_template("doctor_dashboard.html",user_name=name , allow=True)
     else :
-        return render_template("index.html")
+        return render_template("doctor.html",failure=True)
 
 @app.route('/patinetaccess',methods=['POST'])
 def patient_codes():
@@ -102,7 +102,7 @@ def login_patient():
         data=view_data(uidin)
         return render_template("patient_dashboard.html",user_name=name,uid=uidin,output_data=data)
     else :
-        return render_template("index.html")
+        return render_template("patient.html",failure=True)
 
 
 
@@ -167,7 +167,7 @@ def login_hospital():
         elif typel=="Lab":
             return render_template("lab_dashboard.html",user_name=name,lab=True,hname=hname)
     else :
-        return render_template("index.html")
+        return render_template("hospital.html",failure=True)
     
 
 @app.route('/admindata',methods=['POST'])

@@ -159,6 +159,10 @@ button:hover {
             <div class="banner-text text-center">
               <h1 class="white">Patient login / register</h1>
             </div>
+            {%if failure is defined%}
+              <h4 class="white" style="text-align: center;"> Invalid Password / Username</h4>
+
+            {%endif%}
   
 
             <a  class="btn btn-appoint" style="margin-left: 500px; width: 100px;" onclick="document.getElementById('id02').style.display='block'">LOGIN</a>
