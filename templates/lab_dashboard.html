@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Sesphr-Hospital Lab Dashboard </title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css'>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <link rel="stylesheet" href="./static/css/style_dashboard.css">
 
 </head>
@@ -105,12 +105,33 @@
 {% if add is defined %}
     <form  method=post action="{{url_for('insert_data_lab')}}" enctype=multipart/form-data style="margin-top:100px;margin-left:200px;">
     <div class="container">
+
+
+       <!-- Dropdown Trigger -->
       
       <label for="diag"><b>Test Type </b></label>
-      <input type="text" placeholder="Enter Test type" name="diag" required style="margin-left: 85px;">
+  
+      <select name="diag" id="diag" style="margin-left: 185px;">
+      <option value="Amniocentesis">Amniocentesis</option>
+      <option value="Blood count">Blood count</option>
+      <option value="Blood typing">Blood typing</option>
+      <option value="Cephalin-cholesterol flocculation">Cephalin-cholesterol flocculation</option>
+      <option value="Enzyme analysis">Enzyme analysis</option>
+      <option value="epinephrine tolerance test">epinephrine tolerance test</option>
+      <option value="glucose tolerance test">glucose tolerance test</option>
+      <option value="hematocrit">hematocrit</option>
+      <option value="immunologic blood test">immunologic blood test</option>
+      <option value="inulin clearance">inulin clearance</option>
+      <option value="serological test">serological test</option>
+      <option value="thymol turbidity">thymol turbidity</option>
+      <option value="syphilis test">syphilis test</option>
+      <option value="thyroid function test">thyroid function test</option>
+      <option value="urinalysis/uroscopy">urinalysis/uroscopy</option>
+
+    </select>
       <br>
       <label for="pres"><b>Result </b></label>
-      <input type="text" placeholder="Enter result" name="pres" required style="margin-left: 90px;" >
+      <input type="text" placeholder="Enter result" name="pres" required style="margin-left:0px;" >
       <br>
       <br><br>
 
@@ -133,6 +154,13 @@
 
 </html>
 <!-- partial -->
+<script >
+$(document).ready(function(){
+
+ $('.dropdown-trigger').dropdown();
+
+});
+</script>
   <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js'></script>
 <script  src="./static/js/script_dashboard.js"></script>
