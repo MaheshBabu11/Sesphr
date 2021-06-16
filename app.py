@@ -1,9 +1,12 @@
 from flask import *
 from flask_cors import CORS
 from utils import *
+from datetime import timedelta
+
 app = Flask(__name__)
 CORS(app)
 app.secret_key = 'some_secret'
+
 
 @app.route('/')
 def index():
@@ -110,6 +113,13 @@ def login_patient():
     else :
         return render_template("patient.html",failure=True)
 
+@app.route('/loginpatient',methods=['GET'])
+def logout_patient():
+    my_uid= session.get('uidval', None)
+    name,uidin=getname_patient(my_uid)
+    block_access(uidin)
+    flash('You were successfully logged out')
+    return render_template('patient.html')
 
 
 

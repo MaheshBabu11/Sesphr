@@ -4,14 +4,8 @@
   <meta charset="UTF-8">
   <title>Sesphr-Patient Dashboard </title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css'>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="./static/css/style_dashboard.css">
-
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -49,7 +43,7 @@
     
     <ul class="dropdown-content" id="user_dropdown">
      <!---- <li><a class="blue-text" href="#!">Profile</a></li>-->
-      <li><a class="blue-text" href="{{url_for('index')}}">Logout</a></li>
+      <li><a class="blue-text" href="{{url_for('logout_patient')}}">Logout</a></li>
     </ul>
 
     <nav class="blue" role="navigation">
@@ -116,6 +110,11 @@
   <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js'></script>
 <script  src="./static/js/script_dashboard.js"></script>
+
+
+<script >
+</script>
+
 
 </body>
 </html>

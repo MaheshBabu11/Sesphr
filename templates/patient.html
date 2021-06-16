@@ -170,6 +170,15 @@ button:hover {
             {%if useradded is defined%}
                <h4 class="white" style="text-align: center;"> User  registered</h4>
             {%endif%}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+             <ul class="flashes white" style="text-align: center;">
+            {% for message in messages %}
+           <li>{{ message }}</li>
+           {% endfor %}
+          </ul>
+           {% endif %}
+          {% endwith %}
 
             <a  class="btn btn-appoint" style="margin-left: 500px; width: 100px;" onclick="document.getElementById('id02').style.display='block'">LOGIN</a>
             <a  class="btn btn-appoint" style="margin-left: 20px; width: 100px;" onclick="document.getElementById('id01').style.display='block'">REGISTER</a>
