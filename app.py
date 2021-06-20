@@ -57,7 +57,7 @@ def patient_codes():
         name,uidin=getname_doctor(session['uidval_doctor'])
         return render_template("doctor_dashboard.html",user_name=name, access=True)
     else:
-        name,uidin=getname_patient(session['uidval_doctor'])
+        name,uidin=getname_doctor(session['uidval_doctor'])
         return render_template("doctor_dashboard.html",user_name=name,allow=True,failure=True)
 
 
