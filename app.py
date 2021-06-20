@@ -54,7 +54,7 @@ def patient_codes():
     session['patinet_access'] = patinet_access
     val=check_codes(patient_uid,patinet_access)
     if val==1:
-        name,uidin=getname_patient(session['uidval_doctor'])
+        name,uidin=getname_doctor(session['uidval_doctor'])
         return render_template("doctor_dashboard.html",user_name=name, access=True)
     else:
         name,uidin=getname_patient(session['uidval_doctor'])
