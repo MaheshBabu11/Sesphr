@@ -80,7 +80,7 @@ def insert_data():
 @app.route('/showdata',methods=['GET'])
 def show_data():
     data=view_data(session['patinet_uid'])
-    name,uidin=getname_patient(session['uidval_doctor'])
+    name,uidin=getname_doctor(session['uidval_doctor'])
     return render_template("doctor_dashboard.html",user_name=name,output_data=data)
 
 @app.route('/registerpatient',methods=['POST'])
