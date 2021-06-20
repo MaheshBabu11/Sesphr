@@ -63,14 +63,14 @@ def patient_codes():
 
 @app.route('/patinetaccess',methods=['GET'])
 def add_data():
-    name,uidin=getname_patient(session['uidval_doctor'])
+    name,uidin=getname_doctor(session['uidval_doctor'])
     return render_template("doctor_dashboard.html",user_name=name,add=True)
    
 @app.route('/insertdata',methods=['POST'])
 def insert_data():
     patient_diagnosis=request.form['diag']
     patinet_prescription=request.form['pres']
-    name,uidin=getname_patient(session['uidval_doctor'])
+    name,uidin=getname_doctor(session['uidval_doctor'])
     if (check_codes(session['patinet_uid'],session['patinet_access'])):
         insert_val( session['patinet_uid'],session['patinet_access'],patient_diagnosis,patinet_prescription,uidin)
         return render_template("doctor_dashboard.html",user_name=name,sucess=True,access=True)
